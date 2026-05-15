@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest — My Journal</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+</head>
+<body class="journal-body">
+
+  <nav class="mn-nav">
+    <a href="/dashboard" class="mn-nav-brand">
+
+      <img
+        src="/images/mindnest-logo.png"
+        alt="MindNest Logo"
+        class="mn-logo"
+      >
+
+      MindNest
+
+    </a>
+    <div class="mn-nav-right">
+      <a href="/dashboard" class="mn-nav-link">Home</a>
+      <div class="mn-avatar-wrap">
+        <div class="mn-avatar" id="avatarBtn">
+          <%= user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase() %>
+        </div>
+        <div class="mn-dropdown" id="avatarDropdown">
+          <div class="mn-dropdown-header">
+            <div class="mn-dropdown-name"><%= user.name || 'User' %></div>
+            <div class="mn-dropdown-email"><%= user.email %></div>
+          </div>
+          <div class="mn-dropdown-divider"></div>
+          <a href="/logout" class="mn-dropdown-item">
+            <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="journal-hero">
+    <div class="journal-hero-content">
+      <h1 class="journal-title">My Journal</h1>
+      <a href="/entry/new" class="btn-sage">
+        <i class="ti ti-plus" aria-hidden="true"></i> New entry
+      </a>
+    </div>
+  </div>
+
+  <div class="mn-container">
+
+    <form action="/search" method="GET" class="mn-search">
+      <input
+        type="text"
+        name="q"
+        class="mn-input"
+        placeholder="Search your entries..."
+        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+      />
+      <button type="submit" class="btn-outline">
+        <i class="ti ti-search" aria-hidden="true"></i>
+      </button>
+      <% if (typeof searchQuery !== 'undefined' && searchQuery !== '') { %>
+        <a href="/dashboard" class="btn-outline">Clear</a>
+      <% } %>
+    </form>
+
+    <% if (typeof searchQuery !== 'undefined' && searchQuery !== '') { %>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:1.25rem;">
+        <%= entries.length %> result<%= entries.length !== 1 ? 's' : '' %> for "<%= searchQuery %>"
+      </p>
+    <% } %>
+
+    <% if (entries.length === 0) { %>
+      <div class="mn-empty">
+        <div class="mn-empty-icon"><i class="ti ti-notebook" aria-hidden="true"></i></div>
+        <% if (typeof searchQuery !== 'undefined' && searchQuery !== '') { %>
+          <h3>No entries found</h3>
+          <p>Nothing matched "<%= searchQuery %>". Try a different word.</p>
+          <a href="/journal" class="btn-outline" style="margin-top:1rem;">Back to journal</a>
+        <% } else { %>
+          <h3>Your journal is empty</h3>
+          <p>Every great journey begins with a single word.</p>
+          <a href="/entry/new" class="btn-sage" style="margin-top:1rem;">Write your first entry</a>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="mn-entry-grid">
+        <% entries.forEach(entry => { %>
+          <a href="/entry/<%= entry.id %>" class="mn-entry-card">
+            <div class="mn-entry-title"><%= entry.title %></div>
+            <div class="mn-entry-preview"><%= entry.preview %>...</div>
+            <div style="font-size:11px; color:var(--text-soft); margin-top:2px;">
+              <%= entry.preview.trim().split(/\s+/).length %>+ words
+            </div>
+            <div class="mn-entry-meta">
+              <span>
+                <%= new Date(entry.created_at).toLocaleString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  day: "numeric", month: "short",
+                  hour: "2-digit", minute: "2-digit"
+                }) %>
+              </span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <% if (entry.updated_at && entry.updated_at.getTime() !== entry.created_at.getTime()) { %>
+                  <span style="color:var(--sage); font-size:11px;">✏️ edited</span>
+                <% } %>
+                <% if (entry.mood) { %>
+                  <span class="mn-mood-tag mn-mood-<%= entry.mood %>">
+                    <%= entry.mood === 'calm' ? '🌿' : 
+                        entry.mood === 'motivated' ? '⚡' :
+                        entry.mood === 'reflective' ? '🌧' :
+                        entry.mood === 'hopeful' ? '🌱' : '😔' %>
+                    <%= entry.mood %>
+                  </span>
+                <% } %>
+              </div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    const btn = document.getElementById('avatarBtn');
+    const dropdown = document.getElementById('avatarDropdown');
+    btn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+  </script>
+
+</body>
+</html>

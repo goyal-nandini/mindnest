@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindNest — New Entry</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+    />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+  </head>
+  <body>
+    <nav class="mn-nav">
+      <a href="/dashboard" class="mn-nav-brand">
+        <img
+          src="/images/mindnest-logo.png"
+          alt="MindNest Logo"
+          class="mn-logo"
+        />
+
+        MindNest
+      </a>
+      <div class="mn-nav-right">
+        <a href="/dashboard" class="mn-nav-link">
+          <i class="ti ti-arrow-left" aria-hidden="true"></i> Back
+        </a>
+      </div>
+    </nav>
+
+    <div class="mn-container" style="max-width: 680px">
+      <div class="mn-page-header">
+        <h1 class="mn-page-title">New entry</h1>
+      </div>
+
+      <div class="mn-card">
+        <form action="/entry/new" method="POST">
+          <div class="mn-form-group">
+            <label class="mn-label">Title</label>
+            <input
+              type="text"
+              name="title"
+              class="mn-input"
+              placeholder="What's on your mind?"
+              required
+            />
+          </div>
+
+          <div class="mn-form-group" style="margin-top: 1rem">
+            <label class="mn-label">How are you feeling?</label>
+            <div class="mood-grid" style="margin-bottom: 0">
+              <label class="mood-radio-btn">
+                <input type="radio" name="mood" value="calm" checked hidden />
+                🌿 Calm
+              </label>
+              <label class="mood-radio-btn">
+                <input type="radio" name="mood" value="motivated" hidden />
+                ⚡ Motivated
+              </label>
+              <label class="mood-radio-btn">
+                <input type="radio" name="mood" value="reflective" hidden />
+                🌧 Reflective
+              </label>
+              <label class="mood-radio-btn">
+                <input type="radio" name="mood" value="hopeful" hidden />
+                🌱 Hopeful
+              </label>
+              <label class="mood-radio-btn">
+                <input type="radio" name="mood" value="low" hidden />
+                😔 Low
+              </label>
+            </div>
+          </div>
+
+          <div class="mn-form-group" style="margin-top: 1rem">
+            <label class="mn-label">Write freely</label>
+            <textarea
+              name="content"
+              class="mn-textarea"
+              placeholder="Let your thoughts flow..."
+              required
+            ></textarea>
+          </div>
+
+          <div
+            class="mn-entry-actions"
+            style="border: none; padding: 0; margin-top: 1.25rem"
+          >
+            <button type="submit" class="btn-sage">Save entry</button>
+            <a href="/journal" class="btn-outline">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest — <%= entry.title %>
+  </title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+</head>
+
+<body>
+
+  <nav class="mn-nav">
+    <a href="/dashboard" class="mn-nav-brand">
+
+      <img src="/images/mindnest-logo.png" alt="MindNest Logo" class="mn-logo">
+
+      MindNest
+
+    </a>
+    <div class="mn-nav-right">
+      <a href="/dashboard" class="mn-nav-link">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+  </nav>
+
+  <div class="mn-container" style="max-width: 680px;">
+    <div class="mn-card">
+
+      <h1 style="font-family:'Lora',serif; font-size:1.8rem; font-weight:500; margin-bottom:0.5rem;">
+        <%= entry.title %>
+      </h1>
+
+      <div style="display:flex; gap:1rem; align-items:center; margin-bottom:2rem; flex-wrap:wrap;">
+        <small style="color:var(--text-soft); font-size:12px;">
+          <i class="ti ti-calendar" aria-hidden="true"></i>
+          <%= new Date(entry.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" , year: "numeric" ,
+            month: "long" , day: "numeric" , hour: "2-digit" , minute: "2-digit" }) %>
+        </small>
+        <% if (entry.updated_at && entry.updated_at.getTime() !==entry.created_at.getTime()) { %>
+          <small style="color:var(--sage); font-size:12px;">
+            <i class="ti ti-edit" aria-hidden="true"></i>
+            Edited <%= new Date(entry.updated_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" , day: "numeric" ,
+              month: "short" , hour: "2-digit" , minute: "2-digit" }) %>
+          </small>
+          <% } %>
+            <small style="color:var(--text-soft); font-size:12px;">
+              <i class="ti ti-blockquote" aria-hidden="true"></i>
+              <%= entry.content.trim().split(/\s+/).length %> words
+            </small>
+            <% if (entry.mood) { %>
+              <span class="mn-mood-tag mn-mood-<%= entry.mood %>">
+                <%= entry.mood==='calm' ? '🌿' : entry.mood==='motivated' ? '⚡' : entry.mood==='reflective' ? '🌧' :
+                  entry.mood==='hopeful' ? '🌱' : '😔' %>
+                  <%= entry.mood %>
+              </span>
+              <% } %>
+      </div>
+
+      <div class="mn-entry-body">
+        <%= entry.content %>
+      </div>
+
+      <div class="mn-entry-actions">
+        <a href="/entry/<%= entry.id %>/edit" class="btn-sage btn-sm">
+          <i class="ti ti-edit" aria-hidden="true"></i> Edit
+        </a>
+        <form action="/entry/<%= entry.id %>/delete" method="POST"
+          onsubmit="return confirm('Delete this entry? This cannot be undone.')">
+          <button type="submit" class="btn-danger btn-sm">
+            <i class="ti ti-trash" aria-hidden="true"></i> Delete
+          </button>
+        </form>
+        <a href="/journal" class="btn-outline btn-sm">Back to journal</a>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

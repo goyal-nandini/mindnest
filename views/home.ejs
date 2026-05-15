@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest — A private journal for your thoughts</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="mn-home-header">
+    <a href="/" class="mn-nav-brand">
+
+      <img
+        src="/images/mindnest-logo.png"
+        alt="MindNest Logo"
+        class="mn-logo"
+      >
+
+      MindNest
+
+    </a>
+    <nav class="mn-home-nav">
+      <a href="#features" class="mn-home-nav-link">Features</a>
+      <a href="#about" class="mn-home-nav-link">About</a>
+      <a href="/login" class="mn-home-nav-link">Sign in</a>
+      <a href="/register" class="btn-sage btn-sm">Get started</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="mn-hero-main">
+    <div class="mn-hero-left">
+      <span class="mn-hero-tag">🔒 Private & secure journaling</span>
+      <h1 class="mn-hero-title">
+        A private journal<br>for your thoughts,<br>made for <em>you.</em>
+      </h1>
+      <p class="mn-hero-sub">
+        Write freely. Reflect deeply. All your entries are private and secure — just for your eyes. No ads, no tracking, no noise.
+      </p>
+      <div class="mn-hero-btns">
+        <a href="/register" class="btn-sage">Start writing — it's free</a>
+        <a href="/login" class="btn-outline">Sign in</a>
+      </div>
+    </div>
+    <div class="mn-hero-right"></div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="mn-features" id="features">
+    <div class="mn-feature-item">
+      <div class="mn-feature-icon"><i class="ti ti-lock" aria-hidden="true"></i></div>
+      <div class="mn-feature-title">Private & secure</div>
+      <div class="mn-feature-desc">Your entries are yours alone. Always private, never shared.</div>
+    </div>
+    <div class="mn-feature-item">
+      <div class="mn-feature-icon"><i class="ti ti-search" aria-hidden="true"></i></div>
+      <div class="mn-feature-title">Instant search</div>
+      <div class="mn-feature-desc">Find any thought across all your entries in seconds.</div>
+    </div>
+    <div class="mn-feature-item">
+      <div class="mn-feature-icon"><i class="ti ti-brand-google" aria-hidden="true"></i></div>
+      <div class="mn-feature-title">Google login</div>
+      <div class="mn-feature-desc">Sign in with Google in one click. No friction, ever.</div>
+    </div>
+    <div class="mn-feature-item">
+      <div class="mn-feature-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+      <div class="mn-feature-title">Anywhere, anytime</div>
+      <div class="mn-feature-desc">Access your journal from any device, any time.</div>
+    </div>
+  </section>
+
+  <!-- COUNTER SECTION -->
+<section class="mn-counter-section">
+  <div class="mn-counter-grid">
+    <div class="mn-counter-item">
+      <div class="mn-counter-num" data-target="<%= journalsCreated %>">0</div>
+      <div class="mn-counter-label">Journals created</div>
+    </div>
+    <div class="mn-counter-item">
+      <div class="mn-counter-num" data-target="<%= entriesWritten %>">0</div>
+      <div class="mn-counter-label">Entries written</div>
+    </div>
+    <div class="mn-counter-item">
+      <div class="mn-counter-num" data-target="<%= happyWriters %>">0</div>
+      <div class="mn-counter-label">Happy writers</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll('.mn-counter-num');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      let current = 0;
+      const step = Math.ceil(target / 60);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current.toLocaleString();
+        if (current >= target) clearInterval(timer);
+      }, 25);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => observer.observe(c));
+</script>
+
+<!-- Note on counter numbers: These are hardcoded display numbers for your resume 
+ project — that's standard practice for landing pages even in real startups. You can 
+ update them anytime. -->
+
+  <!-- ABOUT -->
+  <section class="mn-about" id="about">
+    <div class="mn-about-inner">
+      <h2 class="mn-about-title">Why MindNest?</h2>
+      <p class="mn-about-text">
+        Journaling is one of the most powerful habits for mental clarity and self-awareness. MindNest gives you a distraction-free, private space to write — no social features, no followers, no performance. Just you and your thoughts.
+      </p>
+      <a href="/register" class="btn-sage">Start your journal today</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mn-footer">
+  <div class="mn-footer-top">
+
+    <!-- Left: brand + tagline + socials -->
+    <div class="mn-footer-brand">
+      <a href="/" class="mn-nav-brand">
+
+      <img
+        src="/images/mindnest-logo.png"
+        alt="MindNest Logo"
+        class="mn-logo"
+      >
+
+      MindNest
+
+    </a>
+      <p class="mn-footer-tagline">
+        A quiet place for your thoughts.<br>
+        Private by default. Built for mindful journaling.
+      </p>
+      <div class="mn-footer-socials">
+        <a href="https://github.com/goyal-nandini" target="Github" 
+           class="mn-social-btn" aria-label="GitHub">
+          <i class="ti ti-brand-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/nandini-goyal29/" class="mn-social-btn" aria-label="Linkedin">
+          <i class="ti ti-brand-linkedin"></i>
+        </a>
+        <a href="https://x.com/nandini_goyal9" class="mn-social-btn" aria-label="Twitter/X">
+          <i class="ti ti-brand-x"></i>
+        </a>
+        <a href="mailto:nandinikartik1981@gmail.com" 
+           class="mn-social-btn" aria-label="Email">
+          <i class="ti ti-mail"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: tagline card with subtle leaf -->
+    <div class="mn-footer-card">
+      <div class="mn-footer-card-body">
+        <div class="mn-footer-card-icon">🌿</div>
+        <div class="mn-footer-card-text">
+          Your thoughts.<br>Always yours.
+        </div>
+        <p class="mn-footer-card-sub">
+          
+        </p>
+      </div>
+      <div class="mn-footer-card-leaf" aria-hidden="true">
+        <svg viewBox="0 0 80 120" width="80" opacity="0.12">
+          <path d="M40 10 C10 30 5 70 40 110 C75 70 70 30 40 10Z" 
+                fill="#A8C5A0"/>
+          <line x1="40" y1="10" x2="40" y2="110" 
+                stroke="#A8C5A0" stroke-width="1.5"/>
+          <line x1="40" y1="40" x2="20" y2="55" 
+                stroke="#A8C5A0" stroke-width="1"/>
+          <line x1="40" y1="55" x2="60" y2="68" 
+                stroke="#A8C5A0" stroke-width="1"/>
+          <line x1="40" y1="68" x2="22" y2="80" 
+                stroke="#A8C5A0" stroke-width="1"/>
+        </svg>
+        <svg width="100%" viewBox="0 0 680 200" role="img" xmlns="http://www.w3.org/2000/svg">
+
+  <ellipse cx="120" cy="155" rx="90" ry="18" fill="#2a1f14" opacity="0.5"/>
+  <ellipse cx="560" cy="158" rx="70" ry="14" fill="#2a1f14" opacity="0.4"/>
+
+  <rect x="60" y="75" width="130" height="90" rx="4" fill="#5c3d1e"/>
+  <rect x="64" y="75" width="10" height="90" rx="2" fill="#7a5230"/>
+  <rect x="64" y="75" width="126" height="5" rx="2" fill="#8a6240"/>
+  <line x1="80" y1="105" x2="175" y2="105" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
+  <line x1="80" y1="115" x2="175" y2="115" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
+  <line x1="80" y1="125" x2="160" y2="125" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
+  <line x1="80" y1="135" x2="165" y2="135" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
+
+  <g transform="translate(175, 60) rotate(-30)">
+    <rect x="-4" y="0" width="8" height="60" rx="3" fill="#c8a96e"/>
+    <polygon points="0,-12 -4,0 4,0" fill="#e8d5a3"/>
+    <rect x="-3" y="55" width="6" height="10" rx="1" fill="#8a6240"/>
+  </g>
+
+  <g transform="translate(320, 50)">
+    <ellipse cx="0" cy="0" rx="22" ry="12" fill="#4a7c4e" transform="rotate(-20)"/>
+    <line x1="0" y1="0" x2="0" y2="40" stroke="#4a7c4e" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(350, 40)">
+    <ellipse cx="0" cy="0" rx="16" ry="9" fill="#5a9c5e" transform="rotate(15)"/>
+    <line x1="0" y1="0" x2="-5" y2="30" stroke="#5a9c5e" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(300, 70)">
+    <ellipse cx="0" cy="0" rx="14" ry="7" fill="#3d6b40" transform="rotate(-35)"/>
+    <line x1="0" y1="0" x2="5" y2="25" stroke="#3d6b40" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(480, 60)">
+    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#4a7c4e" transform="rotate(-15)"/>
+    <line x1="0" y1="0" x2="0" y2="50" stroke="#4a7c4e" stroke-width="2"/>
+  </g>
+  <g transform="translate(510, 75)">
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#5a9c5e" transform="rotate(20)"/>
+    <line x1="0" y1="0" x2="-8" y2="35" stroke="#5a9c5e" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(455, 85)">
+    <ellipse cx="0" cy="0" rx="16" ry="8" fill="#3d6b40" transform="rotate(-40)"/>
+    <line x1="0" y1="0" x2="6" y2="28" stroke="#3d6b40" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(535, 65)">
+    <ellipse cx="0" cy="0" rx="12" ry="6" fill="#6ab36e" transform="rotate(10)"/>
+    <line x1="0" y1="0" x2="0" y2="22" stroke="#6ab36e" stroke-width="1.5"/>
+  </g>
+
+  <circle cx="390" cy="55" r="2" fill="#c8a96e" opacity="0.6"/>
+  <circle cx="410" cy="40" r="1.5" fill="#c8a96e" opacity="0.5"/>
+  <circle cx="440" cy="60" r="1" fill="#c8a96e" opacity="0.4"/>
+  <circle cx="260" cy="70" r="1.5" fill="#c8a96e" opacity="0.4"/>
+  <circle cx="240" cy="50" r="1" fill="#c8a96e" opacity="0.3"/>
+
+  <!-- <text x="220" y="125" font-family="Georgia, serif" font-size="15" 
+    fill="#e8d5a3" opacity="0.85" font-style="italic">Your thoughts.</text>
+  <text x="220" y="148" font-family="Georgia, serif" font-size="15" 
+    fill="#e8d5a3" opacity="0.85" font-style="italic">Always yours.</text> -->
+
+</svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mn-footer-bottom">
+    <span>© 2026 MindNest</span>
+    <span class="mn-footer-dot">•</span>
+    <span>Built with care and ☕ by <strong>Nandini Goyal</strong></span>
+  </div>
+</footer>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest — Edit Entry</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+</head>
+<body>
+
+  <nav class="mn-nav">
+    <a href="/dashboard" class="mn-nav-brand">
+
+      <img
+        src="/images/mindnest-logo.png"
+        alt="MindNest Logo"
+        class="mn-logo"
+      >
+
+      MindNest
+
+    </a>
+    <div class="mn-nav-right">
+      <a href="/entry/<%= entry.id %>" class="mn-nav-link">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i> Back
+      </a>
+    </div>
+  </nav>
+
+  <div class="mn-container" style="max-width: 680px;">
+    <div class="mn-page-header">
+      <h1 class="mn-page-title">Edit entry</h1>
+    </div>
+
+    <div class="mn-card">
+      <form action="/entry/<%= entry.id %>/edit" method="POST">
+        <div class="mn-form-group">
+          <label class="mn-label">Title</label>
+          <input type="text" name="title" class="mn-input" value="<%= entry.title %>" required />
+        </div>
+        <div class="mn-form-group" style="margin-top: 1rem;">
+          <label class="mn-label">Entry</label>
+          <textarea name="content" class="mn-textarea" required><%= entry.content %></textarea>
+        </div>
+        <div class="mn-entry-actions" style="border: none; padding: 0; margin-top: 1.25rem;">
+          <button type="submit" class="btn-sage">Save changes</button>
+          <a href="/entry/<%= entry.id %>" class="btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

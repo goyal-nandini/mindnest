@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindNest — Welcome</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+</head>
+<body class="welcome-body">
+
+  <nav class="mn-nav">
+    <a href="/dashboard" class="mn-nav-brand">
+
+      <img
+        src="/images/mindnest-logo.png"
+        alt="MindNest Logo"
+        class="mn-logo"
+      >
+
+      MindNest
+
+    </a>
+    <div class="mn-nav-right">
+      <a href="/journal" class="mn-nav-link">My Journal</a>
+      <div class="mn-avatar-wrap">
+        <div class="mn-avatar" id="avatarBtn">
+          <%= user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase() %>
+        </div>
+        <div class="mn-dropdown" id="avatarDropdown">
+          <div class="mn-dropdown-header">
+            <div class="mn-dropdown-name"><%= user.name || 'User' %></div>
+            <div class="mn-dropdown-email"><%= user.email %></div>
+          </div>
+          <div class="mn-dropdown-divider"></div>
+          <a href="/journal" class="mn-dropdown-item">
+            <i class="ti ti-notebook" aria-hidden="true"></i> My Journal
+          </a>
+          <a href="/logout" class="mn-dropdown-item">
+            <i class="ti ti-logout" aria-hidden="true"></i> Sign out
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="welcome-wrap">
+
+    <!-- Left: Greeting + Mood -->
+    <div class="welcome-left">
+      <div class="welcome-time" id="greetingText"><%= greeting %></div>
+      <h1 class="welcome-name">
+        <%= user.name ? user.name.split(' ')[0] : user.email.split('@')[0] %> 🌿
+      </h1>
+      <p class="welcome-prompt">How are you feeling today?</p>
+
+      <div class="mood-grid">
+        <button class="mood-btn active" data-mood="calm">🌿 Calm</button>
+        <button class="mood-btn" data-mood="motivated">⚡ Motivated</button>
+        <button class="mood-btn" data-mood="reflective">🌧 Reflective</button>
+        <button class="mood-btn" data-mood="hopeful">🌱 Hopeful</button>
+        <button class="mood-btn" data-mood="low">😔 Low</button>
+      </div>
+
+      <!-- Quote card -->
+      <div class="quote-card" id="quoteCard">
+        <div class="quote-loading" id="quoteLoading">
+          <i class="ti ti-loader" aria-hidden="true"></i>
+        </div>
+        <blockquote class="quote-text" id="quoteText" style="display:none;"></blockquote>
+        <cite class="quote-author" id="quoteAuthor" style="display:none;"></cite>
+      </div>
+
+      <div class="welcome-actions">
+        <a href="/entry/new" class="btn-sage">
+          <i class="ti ti-pencil" aria-hidden="true"></i> Write today's entry
+        </a>
+        <a href="/journal" class="btn-outline">
+          <i class="ti ti-books" aria-hidden="true"></i> Open journal
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: visual panel -->
+    <div class="welcome-right">
+      <div class="welcome-stats">
+        <div class="wstat-card">
+          <div class="wstat-num" id="entryCount">—</div>
+          <div class="wstat-label">Entries written</div>
+        </div>
+        <div class="wstat-card wstat-streak">
+          <div class="wstat-num" id="streakDays">—</div>
+          <div class="wstat-label">🔥 Day streak</div>
+        </div>
+      </div>
+      <div class="welcome-art">
+        <div class="welcome-art-inner">
+          <div class="welcome-tip-label">✍️ Today's writing prompt</div>
+          <div class="welcome-tip-text" id="writingPrompt"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Avatar dropdown
+    const btn = document.getElementById('avatarBtn');
+    const dropdown = document.getElementById('avatarDropdown');
+    btn.addEventListener('click', e => { e.stopPropagation(); dropdown.classList.toggle('open'); });
+    document.addEventListener('click', () => dropdown.classList.remove('open'));
+
+    // Mood → quote system
+    let activeMood = 'calm';
+
+    async function fetchQuote(mood) {
+      document.getElementById('quoteText').style.display = 'none';
+      document.getElementById('quoteAuthor').style.display = 'none';
+      document.getElementById('quoteLoading').style.display = 'flex';
+      try {
+        const res = await fetch(`/api/quote?mood=${mood}`);
+        const data = await res.json();
+        document.getElementById('quoteText').textContent = `"${data.text}"`;
+        document.getElementById('quoteAuthor').textContent = `— ${data.author}`;
+        document.getElementById('quoteLoading').style.display = 'none';
+        document.getElementById('quoteText').style.display = 'block';
+        document.getElementById('quoteAuthor').style.display = 'block';
+      } catch(e) {
+        document.getElementById('quoteLoading').style.display = 'none';
+      }
+    }
+
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeMood = btn.dataset.mood;
+        fetchQuote(activeMood);
+      });
+    });
+
+    // Fetch stats
+    fetch('/api/stats')
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('entryCount').textContent = data.totalEntries;
+        document.getElementById('streakDays').textContent = data.uniqueDays;
+      }).catch(() => {});
+
+    // Load initial quote
+    fetchQuote('calm');
+    const prompts = [
+    "What made you smile today, even briefly?",
+    "Describe your current mood in three words.",
+    "What's one thing you want to let go of?",
+    "Write about a moment of peace you experienced recently.",
+    "What are you grateful for right now?",
+    "What would your ideal tomorrow look like?",
+    "What's one thing you learned about yourself this week?",
+    "Write a letter to your future self.",
+    "What do you need to hear right now?",
+    "What's been on your mind that you haven't said out loud?",
+    ];
+    document.getElementById('writingPrompt').textContent =
+    prompts[Math.floor(Math.random() * prompts.length)];
+  </script>
+
+</body>
+</html>
