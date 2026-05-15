@@ -57,7 +57,7 @@ router.get("/dashboard", isAuthenticated, (req, res) => {
 router.get("/journal", isAuthenticated, async (req, res) => {
   try {
     const result = await db.query(
-      `SELECT id, title, LEFT(content, 150) AS preview, created_at, updated_at
+      `SELECT id, title, LEFT(content, 150) AS preview, created_at, updated_at, mood
        FROM entries WHERE user_id = $1 ORDER BY created_at DESC`,
       [req.user.id]
     );
@@ -85,7 +85,7 @@ router.get("/search", isAuthenticated, async (req, res) => {
   const query = req.query.q?.trim() || "";
   try {
     const result = await db.query(
-      `SELECT id, title, LEFT(content, 150) AS preview, created_at, updated_at
+      `SELECT id, title, LEFT(content, 150) AS preview, created_at, updated_at, mood
        FROM entries
        WHERE user_id = $1 AND (title ILIKE $2 OR content ILIKE $2)
        ORDER BY created_at DESC`,
