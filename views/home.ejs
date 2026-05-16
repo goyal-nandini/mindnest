@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
 </head>
+
 <body>
 
   <!-- HEADER -->
   <header class="mn-home-header">
     <a href="/" class="mn-nav-brand">
 
-      <img
-        src="/images/mindnest-logo.png"
-        alt="MindNest Logo"
-        class="mn-logo"
-      >
+      <img src="/images/mindnest-logo.png" alt="MindNest Logo" class="mn-logo">
 
       MindNest
 
@@ -39,7 +37,8 @@
         A private journal<br>for your thoughts,<br>made for <em>you.</em>
       </h1>
       <p class="mn-hero-sub">
-        Write freely. Reflect deeply. All your entries are private and secure — just for your eyes. No ads, no tracking, no noise.
+        Write freely. Reflect deeply. All your entries are private and secure — just for your eyes. No ads, no tracking,
+        no noise.
       </p>
       <div class="mn-hero-btns">
         <a href="/register" class="btn-sage">Start writing — it's free</a>
@@ -74,44 +73,44 @@
   </section>
 
   <!-- COUNTER SECTION -->
-<section class="mn-counter-section">
-  <div class="mn-counter-grid">
-    <div class="mn-counter-item">
-      <div class="mn-counter-num" data-target="<%= journalsCreated %>">0</div>
-      <div class="mn-counter-label">Journals created</div>
+  <section class="mn-counter-section">
+    <div class="mn-counter-grid">
+      <div class="mn-counter-item">
+        <div class="mn-counter-num" data-target="<%= journalsCreated %>">0</div>
+        <div class="mn-counter-label">Journals created</div>
+      </div>
+      <div class="mn-counter-item">
+        <div class="mn-counter-num" data-target="<%= entriesWritten %>">0</div>
+        <div class="mn-counter-label">Entries written</div>
+      </div>
+      <div class="mn-counter-item">
+        <div class="mn-counter-num" data-target="<%= happyWriters %>">0</div>
+        <div class="mn-counter-label">Happy writers</div>
+      </div>
     </div>
-    <div class="mn-counter-item">
-      <div class="mn-counter-num" data-target="<%= entriesWritten %>">0</div>
-      <div class="mn-counter-label">Entries written</div>
-    </div>
-    <div class="mn-counter-item">
-      <div class="mn-counter-num" data-target="<%= happyWriters %>">0</div>
-      <div class="mn-counter-label">Happy writers</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  const counters = document.querySelectorAll('.mn-counter-num');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.dataset.target);
-      let current = 0;
-      const step = Math.ceil(target / 60);
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = current.toLocaleString();
-        if (current >= target) clearInterval(timer);
-      }, 25);
-      observer.unobserve(el);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => observer.observe(c));
-</script>
+  <script>
+    const counters = document.querySelectorAll('.mn-counter-num');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        let current = 0;
+        const step = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current.toLocaleString();
+          if (current >= target) clearInterval(timer);
+        }, 25);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => observer.observe(c));
+  </script>
 
-<!-- Note on counter numbers: These are hardcoded display numbers for your resume 
+  <!-- Note on counter numbers: These are hardcoded display numbers for your resume 
  project — that's standard practice for landing pages even in real startups. You can 
  update them anytime. -->
 
@@ -120,7 +119,9 @@
     <div class="mn-about-inner">
       <h2 class="mn-about-title">Why MindNest?</h2>
       <p class="mn-about-text">
-        Journaling is one of the most powerful habits for mental clarity and self-awareness. MindNest gives you a distraction-free, private space to write — no social features, no followers, no performance. Just you and your thoughts.
+        Journaling is one of the most powerful habits for mental clarity and self-awareness. MindNest gives you a
+        distraction-free, private space to write — no social features, no followers, no performance. Just you and your
+        thoughts.
       </p>
       <a href="/register" class="btn-sage">Start your journal today</a>
     </div>
@@ -128,139 +129,94 @@
 
   <!-- FOOTER -->
   <footer class="mn-footer">
-  <div class="mn-footer-top">
+    <div class="mn-footer-top">
 
-    <!-- Left: brand + tagline + socials -->
-    <div class="mn-footer-brand">
-      <a href="/" class="mn-nav-brand">
+      <!-- Left: brand + tagline + socials -->
+      <div class="mn-footer-brand">
+        <a href="/" class="mn-nav-brand">
 
-      <img
-        src="/images/mindnest-logo.png"
-        alt="MindNest Logo"
-        class="mn-logo"
-      >
+          <img src="/images/mindnest-logo.png" alt="MindNest Logo" class="mn-logo">
 
-      MindNest
+          MindNest
 
-    </a>
-      <p class="mn-footer-tagline">
-        A quiet place for your thoughts.<br>
-        Private by default. Built for mindful journaling.
-      </p>
-      <div class="mn-footer-socials">
-        <a href="https://github.com/goyal-nandini" target="Github" 
-           class="mn-social-btn" aria-label="GitHub">
-          <i class="ti ti-brand-github"></i>
         </a>
-        <a href="https://www.linkedin.com/in/nandini-goyal29/" class="mn-social-btn" aria-label="Linkedin">
-          <i class="ti ti-brand-linkedin"></i>
-        </a>
-        <a href="https://x.com/nandini_goyal9" class="mn-social-btn" aria-label="Twitter/X">
-          <i class="ti ti-brand-x"></i>
-        </a>
-        <a href="mailto:nandinikartik1981@gmail.com" 
-           class="mn-social-btn" aria-label="Email">
-          <i class="ti ti-mail"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Right: tagline card with subtle leaf -->
-    <div class="mn-footer-card">
-      <div class="mn-footer-card-body">
-        <div class="mn-footer-card-icon">🌿</div>
-        <div class="mn-footer-card-text">
-          Your thoughts.<br>Always yours.
-        </div>
-        <p class="mn-footer-card-sub">
-          
+        <p class="mn-footer-tagline">
+          A quiet place for your thoughts.<br>
+          Private by default. Built for mindful journaling.
         </p>
+        <div class="mn-footer-socials">
+          <a href="https://github.com/goyal-nandini" target="Github" class="mn-social-btn" aria-label="GitHub">
+            <i class="ti ti-brand-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/nandini-goyal29/" class="mn-social-btn" aria-label="Linkedin">
+            <i class="ti ti-brand-linkedin"></i>
+          </a>
+          <a href="https://x.com/nandini_goyal9" class="mn-social-btn" aria-label="Twitter/X">
+            <i class="ti ti-brand-x"></i>
+          </a>
+          <a href="mailto:nandinikartik1981@gmail.com" class="mn-social-btn" aria-label="Email">
+            <i class="ti ti-mail"></i>
+          </a>
+        </div>
       </div>
-      <div class="mn-footer-card-leaf" aria-hidden="true">
-        <svg viewBox="0 0 80 120" width="80" opacity="0.12">
-          <path d="M40 10 C10 30 5 70 40 110 C75 70 70 30 40 10Z" 
-                fill="#A8C5A0"/>
-          <line x1="40" y1="10" x2="40" y2="110" 
-                stroke="#A8C5A0" stroke-width="1.5"/>
-          <line x1="40" y1="40" x2="20" y2="55" 
-                stroke="#A8C5A0" stroke-width="1"/>
-          <line x1="40" y1="55" x2="60" y2="68" 
-                stroke="#A8C5A0" stroke-width="1"/>
-          <line x1="40" y1="68" x2="22" y2="80" 
-                stroke="#A8C5A0" stroke-width="1"/>
-        </svg>
-        <svg width="100%" viewBox="0 0 680 200" role="img" xmlns="http://www.w3.org/2000/svg">
 
-  <ellipse cx="120" cy="155" rx="90" ry="18" fill="#2a1f14" opacity="0.5"/>
-  <ellipse cx="560" cy="158" rx="70" ry="14" fill="#2a1f14" opacity="0.4"/>
+      <!-- Right: tagline card with subtle leaf -->
+      <div class="mn-footer-card">
+        <div class="mn-footer-card-body">
+          <div class="mn-footer-card-icon">🌿</div>
+          <div class="mn-footer-card-text">
+            Your thoughts.<br>Always yours.
+          </div>
+          <p class="mn-footer-card-sub">
 
-  <rect x="60" y="75" width="130" height="90" rx="4" fill="#5c3d1e"/>
-  <rect x="64" y="75" width="10" height="90" rx="2" fill="#7a5230"/>
-  <rect x="64" y="75" width="126" height="5" rx="2" fill="#8a6240"/>
-  <line x1="80" y1="105" x2="175" y2="105" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
-  <line x1="80" y1="115" x2="175" y2="115" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
-  <line x1="80" y1="125" x2="160" y2="125" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
-  <line x1="80" y1="135" x2="165" y2="135" stroke="#8a6240" stroke-width="1" opacity="0.6"/>
-
-  <g transform="translate(175, 60) rotate(-30)">
-    <rect x="-4" y="0" width="8" height="60" rx="3" fill="#c8a96e"/>
-    <polygon points="0,-12 -4,0 4,0" fill="#e8d5a3"/>
-    <rect x="-3" y="55" width="6" height="10" rx="1" fill="#8a6240"/>
-  </g>
-
-  <g transform="translate(320, 50)">
-    <ellipse cx="0" cy="0" rx="22" ry="12" fill="#4a7c4e" transform="rotate(-20)"/>
-    <line x1="0" y1="0" x2="0" y2="40" stroke="#4a7c4e" stroke-width="1.5"/>
-  </g>
-  <g transform="translate(350, 40)">
-    <ellipse cx="0" cy="0" rx="16" ry="9" fill="#5a9c5e" transform="rotate(15)"/>
-    <line x1="0" y1="0" x2="-5" y2="30" stroke="#5a9c5e" stroke-width="1.5"/>
-  </g>
-  <g transform="translate(300, 70)">
-    <ellipse cx="0" cy="0" rx="14" ry="7" fill="#3d6b40" transform="rotate(-35)"/>
-    <line x1="0" y1="0" x2="5" y2="25" stroke="#3d6b40" stroke-width="1.5"/>
-  </g>
-  <g transform="translate(480, 60)">
-    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#4a7c4e" transform="rotate(-15)"/>
-    <line x1="0" y1="0" x2="0" y2="50" stroke="#4a7c4e" stroke-width="2"/>
-  </g>
-  <g transform="translate(510, 75)">
-    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#5a9c5e" transform="rotate(20)"/>
-    <line x1="0" y1="0" x2="-8" y2="35" stroke="#5a9c5e" stroke-width="1.5"/>
-  </g>
-  <g transform="translate(455, 85)">
-    <ellipse cx="0" cy="0" rx="16" ry="8" fill="#3d6b40" transform="rotate(-40)"/>
-    <line x1="0" y1="0" x2="6" y2="28" stroke="#3d6b40" stroke-width="1.5"/>
-  </g>
-  <g transform="translate(535, 65)">
-    <ellipse cx="0" cy="0" rx="12" ry="6" fill="#6ab36e" transform="rotate(10)"/>
-    <line x1="0" y1="0" x2="0" y2="22" stroke="#6ab36e" stroke-width="1.5"/>
-  </g>
-
-  <circle cx="390" cy="55" r="2" fill="#c8a96e" opacity="0.6"/>
-  <circle cx="410" cy="40" r="1.5" fill="#c8a96e" opacity="0.5"/>
-  <circle cx="440" cy="60" r="1" fill="#c8a96e" opacity="0.4"/>
-  <circle cx="260" cy="70" r="1.5" fill="#c8a96e" opacity="0.4"/>
-  <circle cx="240" cy="50" r="1" fill="#c8a96e" opacity="0.3"/>
-
-  <!-- <text x="220" y="125" font-family="Georgia, serif" font-size="15" 
-    fill="#e8d5a3" opacity="0.85" font-style="italic">Your thoughts.</text>
-  <text x="220" y="148" font-family="Georgia, serif" font-size="15" 
-    fill="#e8d5a3" opacity="0.85" font-style="italic">Always yours.</text> -->
-
-</svg>
+          </p>
+        </div>
+        <div class="mn-footer-card-leaf">
+          <svg width="85%" height="90" viewBox="0 0 680 160" role="img" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="130" x2="640" y2="130" stroke="#5a8a5e" stroke-width="0.8" opacity="0.25" />
+            <path d="M80 130 C60 100 50 70 80 55 C110 70 105 100 80 130Z" fill="#4a7c4e" opacity="0.55" />
+            <line x1="80" y1="130" x2="80" y2="55" stroke="#3d6b40" stroke-width="1.2" opacity="0.5" />
+            <line x1="80" y1="100" x2="62" y2="85" stroke="#3d6b40" stroke-width="0.8" opacity="0.4" />
+            <line x1="80" y1="85" x2="97" y2="72" stroke="#3d6b40" stroke-width="0.8" opacity="0.4" />
+            <path d="M55 130 C40 108 38 88 58 78 C72 88 68 112 55 130Z" fill="#6ab36e" opacity="0.4" />
+            <circle cx="80" cy="52" r="4" fill="#c8a96e" opacity="0.7" />
+            <circle cx="80" cy="52" r="2" fill="#e8d5a3" opacity="0.8" />
+            <line x1="200" y1="130" x2="200" y2="30" stroke="#4a7c4e" stroke-width="1.5" opacity="0.5" />
+            <path d="M200 95 C175 80 165 60 185 48 C200 60 205 80 200 95Z" fill="#5a9c5e" opacity="0.5" />
+            <path d="M200 75 C225 62 235 42 215 32 C200 42 198 62 200 75Z" fill="#4a7c4e" opacity="0.5" />
+            <circle cx="200" cy="27" r="5" fill="#d4956a" opacity="0.6" />
+            <circle cx="200" cy="27" r="2.5" fill="#f0c49a" opacity="0.8" />
+            <path d="M320 130 Q310 90 280 70" stroke="#5a8a5e" stroke-width="1.5" fill="none" opacity="0.5" />
+            <path d="M320 130 Q330 85 360 65" stroke="#5a8a5e" stroke-width="1.5" fill="none" opacity="0.5" />
+            <path d="M280 70 C258 58 248 38 268 28 C285 38 288 60 280 70Z" fill="#6ab36e" opacity="0.5" />
+            <line x1="280" y1="70" x2="268" y2="28" stroke="#4a7c4e" stroke-width="1" opacity="0.4" />
+            <path d="M360 65 C382 53 392 33 372 23 C355 33 352 55 360 65Z" fill="#5a9c5e" opacity="0.5" />
+            <line x1="360" y1="65" x2="372" y2="23" stroke="#4a7c4e" stroke-width="1" opacity="0.4" />
+            <circle cx="268" cy="25" r="3.5" fill="#c8a96e" opacity="0.65" />
+            <circle cx="372" cy="20" r="3.5" fill="#c8a96e" opacity="0.65" />
+            <path d="M450 130 C445 100 440 75 448 55" stroke="#6ab36e" stroke-width="2" fill="none" opacity="0.45" />
+            <path d="M458 130 C460 98 465 70 460 45" stroke="#5a9c5e" stroke-width="2" fill="none" opacity="0.4" />
+            <path d="M466 130 C472 105 478 82 472 62" stroke="#4a7c4e" stroke-width="2" fill="none" opacity="0.4" />
+            <path d="M448 80 C430 72 425 58 440 52 C450 60 452 74 448 80Z" fill="#6ab36e" opacity="0.4" />
+            <path d="M570 130 C548 105 542 75 565 60 C592 75 592 108 570 130Z" fill="#4a7c4e" opacity="0.5" />
+            <line x1="570" y1="130" x2="565" y2="60" stroke="#3d6b40" stroke-width="1.2" opacity="0.45" />
+            <path d="M598 130 C610 108 615 85 600 72 C585 82 582 110 598 130Z" fill="#5a9c5e" opacity="0.45" />
+            <circle cx="150" cy="90" r="1.5" fill="#c8a96e" opacity="0.4" />
+            <circle cx="420" cy="75" r="1.5" fill="#c8a96e" opacity="0.4" />
+            <circle cx="620" cy="80" r="1.5" fill="#c8a96e" opacity="0.35" />
+          </svg>
+        </div>
       </div>
+
     </div>
 
-  </div>
-
-  <div class="mn-footer-bottom">
-    <span>© 2026 MindNest</span>
-    <span class="mn-footer-dot">•</span>
-    <span>Built with care and ☕ by <strong>Nandini Goyal</strong></span>
-  </div>
-</footer>
-</footer>
+    <div class="mn-footer-bottom">
+      <span>© 2026 MindNest</span>
+      <span class="mn-footer-dot">•</span>
+      <span>Built with care and ☕ by <strong>Nandini Goyal</strong></span>
+    </div>
+  </footer>
 
 </body>
+
 </html>
