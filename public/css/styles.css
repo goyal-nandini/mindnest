@@ -517,47 +517,105 @@ body {
 }
 
 /*  Responsive  */
-/* @media (max-width: 768px) {
-  .mn-hero-main { grid-template-columns: 1fr; }
-  .mn-hero-right { display: none; }
-  .mn-hero-left { padding: 3rem 1.5rem; }
-  .mn-hero-title { font-size: 2rem; }
-  .mn-features { grid-template-columns: repeat(2, 1fr); padding: 2rem 1.5rem; }
-  .mn-entry-grid { grid-template-columns: 1fr; }
-} */
- @media (max-width: 768px) {
-  /* Hero — keep image visible, stack layout */
-  .mn-hero-main {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  .mn-hero-right {
-    display: block;          /* ← was display:none, now visible */
-    height: 280px;
-    background-attachment: scroll; /* fixed doesn't work on mobile */
-  }
-  .mn-hero-left {
-    padding: 2.5rem 1.5rem;
-  }
-  .mn-hero-title { font-size: 2rem; }
-
-  /* Footer */
-  .mn-footer { padding: 2rem 1.5rem 0; }
-  .mn-footer-top { grid-template-columns: 1fr; gap: 1.5rem; }
-  .mn-footer-card { display: none; }
-
-  /* Features */
-  .mn-features { grid-template-columns: repeat(2,1fr); padding: 2rem 1rem; }
-
-  /* Cards */
-  .mn-entry-grid { grid-template-columns: 1fr; }
-  .mn-about { padding: 3rem 1.5rem; }
-  .journal-hero { padding: 1.5rem; }
-  .mn-counter-grid { gap: 2rem; }
+@media (max-width: 768px) {
+  /* ── Navbar ───────────────────────────── */
   .mn-nav { padding: 0 1rem; }
   .mn-home-header { padding: 0 1rem; }
   .mn-home-nav { gap: 0.75rem; }
   .mn-home-nav-link { display: none; }
+
+  /* ── Hero — fix image disappearing ───── */
+  .mn-hero-main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .mn-hero-left {
+    padding: 2.5rem 1.5rem;
+    order: 1;
+  }
+  .mn-hero-right {
+    display: block;
+    height: 220px;
+    order: 2;
+    background-attachment: scroll;
+    background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+  .mn-hero-right::after {
+    background: linear-gradient(to bottom, var(--cream) 0%, transparent 40%);
+  }
+  .mn-hero-title { font-size: 2rem; }
+
+  /* ── Features ─────────────────────────── */
+  .mn-features {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem 1rem;
+  }
+
+  /* ── Counter ──────────────────────────── */
+  .mn-counter-grid { gap: 2rem; }
+  .mn-counter-section { padding: 2rem 1rem; }
+
+  /* ── About ────────────────────────────── */
+  .mn-about { padding: 3rem 1.5rem; }
+
+  /* ── Footer — full responsive fix ─────── */
+  .mn-footer {
+    padding: 2rem 1.25rem 0;  /* ← tighter padding, kills overflow */
+  }
+  .mn-footer-top {
+    grid-template-columns: 1fr;  /* ← stack columns */
+    gap: 1.5rem;
+  }
+  .mn-footer-card {
+    display: none;   /* ← hide right card on mobile, too cramped */
+  }
+  .mn-footer-bottom {
+    flex-wrap: wrap;
+    text-align: center;
+    gap: 0.4rem;
+    padding: 1rem 0.5rem;
+    font-size: 12px;
+  }
+
+  /* ── Journal page ─────────────────────── */
+  .journal-body {
+    background-attachment: scroll;  /* ← fixes extra bg at 320px */
+  }
+  .journal-hero { padding: 1.25rem 1rem; }
+  .journal-hero-content { flex-direction: column; gap: 1rem; align-items: flex-start; }
+
+  /* ── Entry grid ───────────────────────── */
+  .mn-entry-grid { grid-template-columns: 1fr; }
+
+  /* ── Welcome page ─────────────────────── */
+  .welcome-wrap {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  .welcome-name { font-size: 2rem; }
+  .welcome-right { display: block; }
+  .welcome-stats { grid-template-columns: 1fr 1fr; }
+  .welcome-art { display: none; }
+
+  /* ── Auth pages ───────────────────────── */
+  .mn-auth-page { padding: 1rem; }
+  .mn-auth-card { padding: 1.75rem 1.25rem; }
+
+  /* ── Container ────────────────────────── */
+  .mn-container { padding: 1.5rem 1rem; }
+}
+
+/* ── Extra small screens (320px) ─────────── */
+@media (max-width: 400px) {
+  .mn-hero-title { font-size: 1.75rem; }
+  .mn-features { grid-template-columns: 1fr; }
+  .mood-grid { gap: 6px; }
+  .mood-btn, .mood-radio-btn { padding: 6px 12px; font-size: 13px; }
+  .mn-footer { padding: 1.5rem 1rem 0; }
+  .welcome-stats { grid-template-columns: 1fr; }
 }
 
 /*  Home header ─ */
